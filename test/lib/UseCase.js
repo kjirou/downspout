@@ -38,4 +38,52 @@ describe('lib/UseCase', () => {
         })
     });
   });
+
+  describe('execute', () => {
+    it('should return a promise', done => {
+      new UseCase({}, () => {})
+        .execute()
+        .then(() => done())
+      ;
+    });
+
+    it('should return a rejected promise if the logic throws a error', done => {
+      new UseCase({}, () => { throw new Error('NG'); })
+        .execute()
+        .catch(err => {
+          assert.strictEqual(err.message, 'NG');
+          done();
+        })
+      ;
+    });
+
+    it('should continue if the logic returns a promise', done => {
+      new UseCase({}, () => Promise.resolve(123))
+        .execute()
+        .then(result => {
+          assert.strictEqual(result, 123);
+          done();
+        })
+      ;
+    });
+
+    it('can use dependencies and arguments', done => {
+      const deps = {
+        foo: { x: 1, y: 2 },
+        bar: 3,
+      };
+
+      const logic = ({ foo, bar }, a, b) => {
+        return foo.x + foo.y + bar + a + b;
+      };
+
+      new UseCase(deps, logic)
+        .execute(4, 5)
+        .then(result => {
+          assert.strictEqual(result, 15);
+          done();
+        })
+      ;
+    });
+  });
 });
