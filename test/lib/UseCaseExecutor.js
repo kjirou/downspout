@@ -10,7 +10,7 @@ describe('lib/UseCaseExecutor', () => {
     });
   };
 
-  describe('queryExecution', () => {
+  describe('acceptExecutionQuery', () => {
     let executor;
 
     context('simple case', () => {
@@ -33,7 +33,7 @@ describe('lib/UseCaseExecutor', () => {
           assert.strictEqual(situation.useCaseName, 'runResolvedLogic');
           done();
         });
-        executor.queryExecution('runResolvedLogic');
+        executor.acceptExecutionQuery('runResolvedLogic');
       });
 
       it('can execute single rejected use-case logic', done => {
@@ -42,7 +42,7 @@ describe('lib/UseCaseExecutor', () => {
           assert.strictEqual(situation.useCaseName, 'runRejectedLogic');
           done();
         });
-        executor.queryExecution('runRejectedLogic');
+        executor.acceptExecutionQuery('runRejectedLogic');
       });
     });
 
@@ -62,7 +62,7 @@ describe('lib/UseCaseExecutor', () => {
           assert.deepStrictEqual(args, [1, 2, 3]);
           done();
         });
-        executor.queryExecution('sum', 1, 2, 3);
+        executor.acceptExecutionQuery('sum', 1, 2, 3);
       });
     });
 
@@ -92,7 +92,7 @@ describe('lib/UseCaseExecutor', () => {
           assert.strictEqual(context.barModel.value, 20);
           done();
         });
-        executor.queryExecution('updateDeps');
+        executor.acceptExecutionQuery('updateDeps');
       });
     });
 
@@ -129,9 +129,9 @@ describe('lib/UseCaseExecutor', () => {
             done();
           }
         });
-        executor.queryExecution('waitFor150');
-        executor.queryExecution('waitFor100');
-        executor.queryExecution('waitFor50');
+        executor.acceptExecutionQuery('waitFor150');
+        executor.acceptExecutionQuery('waitFor100');
+        executor.acceptExecutionQuery('waitFor50');
       });
     });
   });
