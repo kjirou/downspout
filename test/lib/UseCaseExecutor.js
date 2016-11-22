@@ -93,11 +93,44 @@ describe('lib/UseCaseExecutor', () => {
         executor.queryExecution('updateDeps');
       });
     });
-  });
 
-  // TODO:
-  //describe('results');
-  //describe('share context');
-  //describe('queue executions');
-  //describe('error handling');
+    context('with queuing', () => {
+      let executor;
+
+      beforeEach(() => {
+        executor = new UseCaseExecutor({
+          waitFor50: () => {
+            return new Promise(resolve => setTimeout(() => {
+              resolve(50);
+            }, 50));
+          },
+          waitFor100: () => {
+            return new Promise(resolve => setTimeout(() => {
+              resolve(100);
+            }, 100));
+          },
+          waitFor150: () => {
+            return new Promise(resolve => setTimeout(() => {
+              resolve(150);
+            }, 150));
+          },
+        }, {});
+        _handleRejectedEventForDebugging(executor);
+      });
+
+      it('should resolve parallel use-case execution queries in series', done => {
+        const results = [];
+        executor.on('resolved', result => {
+          results.push(result);
+          if (results.length >= 3) {
+            assert.deepStrictEqual(results, [150, 100, 50]);
+            done();
+          }
+        });
+        executor.queryExecution('waitFor150');
+        executor.queryExecution('waitFor100');
+        executor.queryExecution('waitFor50');
+      });
+    });
+  });
 });
