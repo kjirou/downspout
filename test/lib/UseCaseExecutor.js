@@ -135,4 +135,37 @@ describe('lib/UseCaseExecutor', () => {
       });
     });
   });
+
+  describe('scenarios', () => {
+    it('can accept an use-case execution query in another use-case logic', done => {
+      const executor_ = new UseCaseExecutor({
+        render: () => {
+        },
+        heavyWebApi: ({ executor }) => {
+          return new Promise(resolve => {
+            setTimeout(() => {
+              executor.next('render');
+              resolve();
+            }, 100)
+          });
+        },
+        fastProcess: () => {
+        },
+      }, {});
+
+      _handleRejectedEventForDebugging(executor_);
+
+      const history = [];
+      executor_.on('resolved', ({ useCaseName }) => {
+        history.push(useCaseName);
+        if (history.length === 3) {
+          assert.deepStrictEqual(history, ['heavyWebApi', 'fastProcess', 'render']);
+          done();
+        }
+      });
+
+      executor_.acceptExecutionQuery('heavyWebApi');
+      executor_.acceptExecutionQuery('fastProcess');
+    });
+  });
 });
