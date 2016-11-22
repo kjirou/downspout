@@ -5,15 +5,15 @@ const UseCaseExecutor = require('../../lib/UseCaseExecutor');
 
 describe('lib/UseCaseExecutor', () => {
   const _handleRejectedEventForDebugging = (executor) => {
-    executor.on('rejected', (result) => {
-      console.error(result);
+    executor.on('rejected', (situation) => {
+      console.error(situation);
     });
   };
 
   describe('queryExecution', () => {
     let executor;
 
-    context('simple cases (without args/without context/without queuing)', () => {
+    context('simple case', () => {
       beforeEach(() => {
         executor = new UseCaseExecutor({
           runResolvedLogic: () => {
@@ -22,29 +22,31 @@ describe('lib/UseCaseExecutor', () => {
           runRejectedLogic: () => {
             throw new Error('REJECTED');
           },
-        }, {});
+        }, { x: 1 });
       });
 
       it('can execute single resolved use-case logic', done => {
         _handleRejectedEventForDebugging(executor);
 
-        executor.on('resolved', (result) => {
-          assert.strictEqual(result, 'RESOLVED');
+        executor.on('resolved', (situation) => {
+          assert.strictEqual(situation.result, 'RESOLVED');
+          assert.strictEqual(situation.useCaseName, 'runResolvedLogic');
           done();
         });
         executor.queryExecution('runResolvedLogic');
       });
 
       it('can execute single rejected use-case logic', done => {
-        executor.on('rejected', ({ error }) => {
-          assert.strictEqual(error.message, 'REJECTED');
+        executor.on('rejected', (situation) => {
+          assert.strictEqual(situation.error.message, 'REJECTED');
+          assert.strictEqual(situation.useCaseName, 'runRejectedLogic');
           done();
         });
         executor.queryExecution('runRejectedLogic');
       });
     });
 
-    context('with args', () => {
+    context('use args', () => {
       beforeEach(() => {
         executor = new UseCaseExecutor({
           sum: ({}, ...args) => {
@@ -55,20 +57,20 @@ describe('lib/UseCaseExecutor', () => {
       });
 
       it('can pass args to use-case logic', done => {
-        executor.on('resolved', (result) => {
+        executor.on('resolved', ({ result, args }) => {
           assert.strictEqual(result, 6);
+          assert.deepStrictEqual(args, [1, 2, 3]);
           done();
         });
         executor.queryExecution('sum', 1, 2, 3);
       });
     });
 
-    context('with context', () => {
-      let context;
+    context('use context', () => {
       let executor;
 
       beforeEach(() => {
-        context = {
+        const context = {
           FOO_CONST: 1,
           barModel: {
             value: 2,
@@ -85,7 +87,7 @@ describe('lib/UseCaseExecutor', () => {
       });
 
       it('should pass shallow-copied context for each use-case logics', done => {
-        executor.on('resolved', () => {
+        executor.on('resolved', ({ context }) => {
           assert.strictEqual(context.FOO_CONST, 1);
           assert.strictEqual(context.barModel.value, 20);
           done();
@@ -120,7 +122,7 @@ describe('lib/UseCaseExecutor', () => {
 
       it('should resolve parallel use-case execution queries in series', done => {
         const results = [];
-        executor.on('resolved', result => {
+        executor.on('resolved', ({ result }) => {
           results.push(result);
           if (results.length >= 3) {
             assert.deepStrictEqual(results, [150, 100, 50]);
