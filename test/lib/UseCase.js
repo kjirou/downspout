@@ -67,8 +67,8 @@ describe('lib/UseCase', () => {
       ;
     });
 
-    it('can use dependencies and arguments', done => {
-      const deps = {
+    it('can use the prepared context and passed arguments', done => {
+      const context = {
         foo: { x: 1, y: 2 },
         bar: 3,
       };
@@ -77,7 +77,7 @@ describe('lib/UseCase', () => {
         return foo.x + foo.y + bar + a + b;
       };
 
-      new UseCase(deps, logic)
+      new UseCase(context, logic)
         .execute(4, 5)
         .then(result => {
           assert.strictEqual(result, 15);

@@ -13,7 +13,7 @@ describe('lib/UseCaseExecutor', () => {
   describe('queryExecution', () => {
     let executor;
 
-    context('simple cases (without args/without dependencies/without queuing)', () => {
+    context('simple cases (without args/without context/without queuing)', () => {
       beforeEach(() => {
         executor = new UseCaseExecutor({
           runResolvedLogic: () => {
@@ -63,12 +63,12 @@ describe('lib/UseCaseExecutor', () => {
       });
     });
 
-    context('with dependencies', () => {
-      let dependencies;
+    context('with context', () => {
+      let context;
       let executor;
 
       beforeEach(() => {
-        dependencies = {
+        context = {
           FOO_CONST: 1,
           barModel: {
             value: 2,
@@ -76,18 +76,18 @@ describe('lib/UseCaseExecutor', () => {
         };
 
         executor = new UseCaseExecutor({
-          updateDeps: (deps) => {
-            deps.FOO_CONST = 10;
-            deps.barModel.value = 20;
+          updateDeps: (context) => {
+            context.FOO_CONST = 10;
+            context.barModel.value = 20;
           },
-        }, dependencies);
+        }, context);
         _handleRejectedEventForDebugging(executor);
       });
 
-      it('should pass shallow-copied dependencies for each use-case logics', done => {
+      it('should pass shallow-copied context for each use-case logics', done => {
         executor.on('resolved', () => {
-          assert.strictEqual(dependencies.FOO_CONST, 1);
-          assert.strictEqual(dependencies.barModel.value, 20);
+          assert.strictEqual(context.FOO_CONST, 1);
+          assert.strictEqual(context.barModel.value, 20);
           done();
         });
         executor.queryExecution('updateDeps');
@@ -97,7 +97,7 @@ describe('lib/UseCaseExecutor', () => {
 
   // TODO:
   //describe('results');
-  //describe('share dependencies');
+  //describe('share context');
   //describe('queue executions');
   //describe('error handling');
 });
