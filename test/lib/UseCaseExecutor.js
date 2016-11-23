@@ -31,6 +31,7 @@ describe('lib/UseCaseExecutor', () => {
         executor.on('resolved', (situation) => {
           assert.strictEqual(situation.result, 'RESOLVED');
           assert.strictEqual(situation.useCaseName, 'runResolvedLogic');
+          assert.strictEqual(situation.context.executor, undefined);
           done();
         });
         executor.acceptExecutionQuery('runResolvedLogic');
@@ -40,6 +41,7 @@ describe('lib/UseCaseExecutor', () => {
         executor.on('rejected', (situation) => {
           assert.strictEqual(situation.error.message, 'REJECTED');
           assert.strictEqual(situation.useCaseName, 'runRejectedLogic');
+          assert.strictEqual(situation.context.executor, undefined);
           done();
         });
         executor.acceptExecutionQuery('runRejectedLogic');
