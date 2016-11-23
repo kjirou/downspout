@@ -46,6 +46,12 @@ describe('lib/UseCaseExecutor', () => {
         });
         executor.acceptExecutionQuery('runRejectedLogic');
       });
+
+      it('should throw a error if the use-case does not exist', () => {
+        assert.throws(() => {
+          executor.acceptExecutionQuery('notExistingUseCaseName');
+        }, /notExistingUseCaseName/);
+      });
     });
 
     context('use args', () => {
