@@ -1,6 +1,6 @@
 {
     "tags": {
-        "allowUnknownTags": true
+        "allowUnknownTags": false
     },
     "source": {
         "include": ["lib"],
