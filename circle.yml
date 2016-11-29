@@ -1,0 +1,4 @@
+machine:
+  node:
+    version: "6.8.0"
+  timezone: Asia/Tokyo
