@@ -31,7 +31,6 @@ describe('lib/UseCaseExecutor', () => {
         executor.on('resolved', (situation) => {
           assert.strictEqual(situation.result, 'RESOLVED');
           assert.strictEqual(situation.useCaseName, 'runResolvedLogic');
-          assert.strictEqual(situation.context.executor, undefined);
           done();
         });
         executor.acceptExecutionQuery('runResolvedLogic');
@@ -41,7 +40,6 @@ describe('lib/UseCaseExecutor', () => {
         executor.on('rejected', (situation) => {
           assert.strictEqual(situation.error.message, 'REJECTED');
           assert.strictEqual(situation.useCaseName, 'runRejectedLogic');
-          assert.strictEqual(situation.context.executor, undefined);
           done();
         });
         executor.acceptExecutionQuery('runRejectedLogic');
@@ -94,9 +92,9 @@ describe('lib/UseCaseExecutor', () => {
         _handleRejectedEventForDebugging(executor);
       });
 
-      it('should pass shallow-copied context for each use-case logics', done => {
+      it('should pass reference-copied context for each use-case logics', done => {
         executor.on('resolved', ({ context }) => {
-          assert.strictEqual(context.FOO_CONST, 1);
+          assert.strictEqual(context.FOO_CONST, 10);
           assert.strictEqual(context.barModel.value, 20);
           done();
         });
