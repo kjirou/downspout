@@ -144,7 +144,7 @@ describe('lib/UseCaseExecutor', () => {
     });
   });
 
-  describe('scenarios', () => {
+  describe('executor.next', () => {
     it('can accept an use-case execution query in another use-case logic', done => {
       const executor_ = new UseCaseExecutor({
         render: () => {
@@ -174,6 +174,26 @@ describe('lib/UseCaseExecutor', () => {
 
       executor_.acceptExecutionQuery('heavyWebApi');
       executor_.acceptExecutionQuery('fastProcess');
+    });
+
+    it('should emit an another use-case execution after self execution', done => {
+      const executor_ = new UseCaseExecutor({
+        child: () => {},
+        parent: ({ executor }) => { executor.next('child'); }
+      }, {});
+
+      _handleRejectedEventForDebugging(executor_);
+
+      const history = [];
+      executor_.on('resolved', ({ useCaseName }) => {
+        history.push(useCaseName);
+        if (history.length === 2) {
+          assert.deepStrictEqual(history, ['parent', 'child']);
+          done();
+        }
+      });
+
+      executor_.acceptExecutionQuery('parent');
     });
   });
 });
