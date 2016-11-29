@@ -1,2 +1,3 @@
 # downspout
-A minimal SPA framework to manage disorderly event emitting
+
+Queue the emitting of disorderly events and write business logics routinely

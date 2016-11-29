@@ -1,7 +1,7 @@
 {
   "name": "downspout",
   "version": "0.0.0",
-  "description": "A minimal SPA framework to manage disorderly event emitting",
+  "description": "Queue the emitting of disorderly events and write business logics routinely",
   "main": "index.js",
   "scripts": {
     "test": "mocha",
