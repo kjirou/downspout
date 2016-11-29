@@ -256,4 +256,38 @@ describe('lib/Downspout', () => {
       downspout.execute('foo');
     });
   });
+
+  describe('generateExecutor', () => {
+    it('can generate a bound function', done => {
+      const downspout = new Downspout({
+        foo: () => {},
+      });
+      downspout.on('execution:resolved', ({ useCaseName }) => {
+        assert.strictEqual(useCaseName, 'foo');
+        done();
+      });
+
+      const execute = downspout.generateExecutor();
+      execute('foo');
+    });
+  });
+
+  describe('generateDispatcher', () => {
+    it('can generate a bound function', done => {
+      const downspout = new Downspout({
+        foo: () => {},
+      }, {
+        routes: {
+          CLICK_FOO: 'foo',
+        },
+      });
+      downspout.on('execution:resolved', ({ useCaseName }) => {
+        assert.strictEqual(useCaseName, 'foo');
+        done();
+      });
+
+      const dispatch = downspout.generateDispatcher();
+      dispatch('CLICK_FOO');
+    });
+  });
 });
