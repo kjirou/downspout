@@ -12,8 +12,9 @@ Queue the emitting of disorderly events and write business logics routinely
 - Define business logic (such as ActionCreator) routinely.
   - This is solved by providing a format to describe to business logic like most of web frameworks.
 - Therefore, it prevents simultaneous execution of multiple business logic.
-  - It is very difficult to maintain consistency of data when multiple processes reference/update the same variable.
+  - It is very difficult to maintain consistency of data when multiple processes reference / update the same variable.
   - This is solved by queuing events.
+- Make it available for CUI / CLI applications.
 
 
 ## Installation
