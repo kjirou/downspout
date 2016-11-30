@@ -1,6 +1,6 @@
 {
   "name": "downspout",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Queue the emitting of disorderly events and write business logics routinely",
   "main": "index.js",
   "scripts": {
