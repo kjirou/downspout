@@ -124,8 +124,10 @@ describe('lib/Downspout', () => {
       });
       downspout.execute('add', 1, 2);
     });
+  });
 
-    it('can execute other use-case by using the `utils.fork` in the context', done => {
+  describe('Fork other use-cases', () => {
+    it('can execute other use-case by using the `utils.fork`', done => {
       const downspout = new Downspout({
         lockUIs: () => 'LOCKED',
         unlockUIs: () => 'UNLOCKED',
@@ -152,6 +154,32 @@ describe('lib/Downspout', () => {
       });
 
       downspout.execute('fetchTodos');
+    });
+
+    it('should be executed in the order in which they are called', done => {
+      const downspout = new Downspout({
+        first: () => {},
+        second: ({ utils }) => {
+          utils.fork('forth');
+          utils.fork('fifth');
+        },
+        third: () => {},
+        forth: () => {},
+        fifth: () => {},
+      });
+
+      const results = [];
+      downspout.on('execution:resolved', ({ useCaseName }) => {
+        results.push(useCaseName);
+        if (results.length === 5) {
+          assert.deepStrictEqual(results, ['first', 'second', 'third', 'forth', 'fifth']);
+          done();
+        }
+      });
+
+      downspout.execute('first');
+      downspout.execute('second');
+      downspout.execute('third');
     });
   });
 
