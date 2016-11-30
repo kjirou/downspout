@@ -27,8 +27,8 @@ npm install --save downspout
 
 
 ## 使い方
-### イメージ図
-（後で）
+### 概要
+![](/doc/overview.png)
 
 ### 基本的な使い方を、CLI用サンプルカウンターアプリで解説
 - [最もシンプルな例](/examples/counter-1.js)
