@@ -125,17 +125,17 @@ describe('lib/Downspout', () => {
       downspout.execute('add', 1, 2);
     });
 
-    it('can emit another use-case by using the `executor.next` method in the context', done => {
+    it('can emit another use-case by using the `executor.fork` method in the context', done => {
       const downspout = new Downspout({
         lockUIs: () => 'LOCKED',
         unlockUIs: () => 'UNLOCKED',
         addTodos: (context, todos) => todos,
         fetchTodos: ({ executor }) => {
-          executor.next('lockUIs');
+          executor.fork('lockUIs');
 
           setTimeout(() => {
-            executor.next('addTodos', ['TODO1', 'TODO2']);
-            executor.next('unlockUIs');
+            executor.fork('addTodos', ['TODO1', 'TODO2']);
+            executor.fork('unlockUIs');
           }, 100);
 
           return 'START_FETCHING';
