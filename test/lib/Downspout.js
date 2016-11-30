@@ -125,7 +125,7 @@ describe('lib/Downspout', () => {
       downspout.execute('add', 1, 2);
     });
 
-    it('can emit another use-case by using the `utils.fork` method in the context', done => {
+    it('can execute other use-case by using the `utils.fork` in the context', done => {
       const downspout = new Downspout({
         lockUIs: () => 'LOCKED',
         unlockUIs: () => 'UNLOCKED',
