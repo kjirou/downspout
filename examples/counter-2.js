@@ -10,7 +10,7 @@ const useCases = {
       setTimeout(() => {
         counter += 1;
         resolve();
-      }, 500);
+      }, Math.random() * 2000);
     });
   },
 
@@ -19,7 +19,7 @@ const useCases = {
       setTimeout(() => {
         counter -= 1;
         resolve();
-      }, 500);
+      }, Math.random() * 2000);
     });
   },
 };

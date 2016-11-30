@@ -4,7 +4,7 @@
   "description": "Queue the emitting of disorderly events and write business logics routinely",
   "main": "index.js",
   "scripts": {
-    "test": "mocha",
+    "test": "$(npm bin)/mocha",
     "jsdoc:generate": "$(npm bin)/jsdoc -c ./jsdoc/conf.json -r -d ./jsdoc/out",
     "jsdoc:serve": "$(npm bin)/http-server ./jsdoc/out"
   },

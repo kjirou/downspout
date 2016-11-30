@@ -10,7 +10,8 @@ const useCases = {
   },
   doNotWaitAndIncrementLater: (context, delta) => {
     setTimeout(() => {
-      context.executor.fork('increment', delta);
+      // `fork` is an alias to `downspout.execute`
+      context.utils.fork('increment', delta);
     }, 1000);
   },
 };

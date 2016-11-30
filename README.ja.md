@@ -43,7 +43,7 @@ npm install --save downspout
 - [ユースケースへ引数を渡す](/examples/counter-3.js)
   - Keywords:
     - Use-case arguments
-- [状態を内部に保持する](/examples/counter-4.js)
+- [ユースケースが依存する変数を明示する](/examples/counter-4.js)
   - Keywords:
     - context
 - [Fluxのような実装パターン](/examples/counter-5.js)

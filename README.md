@@ -42,7 +42,7 @@ Please use [browserify](https://github.com/substack/node-browserify)
 - [Pass arguments to use-cases](/examples/counter-3.js)
   - Keywords:
     - Use-case arguments
-- [Maintain state internally](/examples/counter-4.js)
+- [Specify the variables on which the use case depends](/examples/counter-4.js)
   - Keywords:
     - context
 - [Implementation pattern like the Flux](/examples/counter-5.js)
@@ -61,7 +61,7 @@ Please use [browserify](https://github.com/substack/node-browserify)
     - EVENT_NAMES.USE_CASE_EXECUTION_REJECTED
 - [Fork other use-cases](/examples/counter-9.js)
   - Keywords:
-    - executor.fork
+    - utils.fork
 - [Separate layers of use cases and UI events](/examples/counter-10.js)
   - Keywords:
     - routes
