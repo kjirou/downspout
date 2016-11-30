@@ -61,7 +61,7 @@ Please use [browserify](https://github.com/substack/node-browserify)
     - EVENT_NAMES.USE_CASE_EXECUTION_REJECTED
 - [Fork other use-cases](/examples/counter-9.js)
   - Keywords:
-    - executor.fork
+    - utils.fork
 - [Separate layers of use cases and UI events](/examples/counter-10.js)
   - Keywords:
     - routes

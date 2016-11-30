@@ -41,7 +41,7 @@ const useCases = {
     }
 
     setTimeout(() => {
-      context.executor.fork('tick');
+      context.utils.fork('tick');
     }, 1000);
   },
 

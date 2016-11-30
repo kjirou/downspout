@@ -142,15 +142,15 @@ describe('lib/UseCaseExecutor', () => {
     });
   });
 
-  describe('executor.fork', () => {
+  describe('utils.fork', () => {
     it('can accept an use-case execution query in another use-case logic', done => {
       const executor_ = new UseCaseExecutor({
         render: () => {
         },
-        heavyWebApi: ({ executor }) => {
+        heavyWebApi: ({ utils }) => {
           return new Promise(resolve => {
             setTimeout(() => {
-              executor.fork('render');
+              utils.fork('render');
               resolve();
             }, 100)
           });
@@ -177,7 +177,7 @@ describe('lib/UseCaseExecutor', () => {
     it('should emit an another use-case execution after self execution', done => {
       const executor_ = new UseCaseExecutor({
         child: () => {},
-        parent: ({ executor }) => { executor.fork('child'); }
+        parent: ({ utils }) => { utils.fork('child'); }
       }, {});
 
       _handleRejectedEventForDebugging(executor_);
