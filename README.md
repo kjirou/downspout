@@ -1,6 +1,9 @@
 # downspout
 
+[![npm version](https://badge.fury.io/js/downspout.svg)](https://badge.fury.io/js/downspout)
 [![CircleCI](https://circleci.com/gh/kjirou/downspout.svg?style=svg)](https://circleci.com/gh/kjirou/downspout)
+
+README: ( [English](/README.md) | [日本語](/README.ja.md) )
 
 Queue the emitting of disorderly events and write business logics routinely
 
