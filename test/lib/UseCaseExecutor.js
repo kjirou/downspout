@@ -31,7 +31,6 @@ describe('lib/UseCaseExecutor', () => {
         executor.on('resolved', (situation) => {
           assert.strictEqual(situation.result, 'RESOLVED');
           assert.strictEqual(situation.useCaseName, 'runResolvedLogic');
-          assert.strictEqual(situation.context.executor, undefined);
           done();
         });
         executor.acceptExecutionQuery('runResolvedLogic');
@@ -41,7 +40,6 @@ describe('lib/UseCaseExecutor', () => {
         executor.on('rejected', (situation) => {
           assert.strictEqual(situation.error.message, 'REJECTED');
           assert.strictEqual(situation.useCaseName, 'runRejectedLogic');
-          assert.strictEqual(situation.context.executor, undefined);
           done();
         });
         executor.acceptExecutionQuery('runRejectedLogic');
@@ -94,9 +92,9 @@ describe('lib/UseCaseExecutor', () => {
         _handleRejectedEventForDebugging(executor);
       });
 
-      it('should pass shallow-copied context for each use-case logics', done => {
+      it('should pass reference-copied context for each use-case logics', done => {
         executor.on('resolved', ({ context }) => {
-          assert.strictEqual(context.FOO_CONST, 1);
+          assert.strictEqual(context.FOO_CONST, 10);
           assert.strictEqual(context.barModel.value, 20);
           done();
         });
@@ -144,7 +142,7 @@ describe('lib/UseCaseExecutor', () => {
     });
   });
 
-  describe('executor.next', () => {
+  describe('executor.fork', () => {
     it('can accept an use-case execution query in another use-case logic', done => {
       const executor_ = new UseCaseExecutor({
         render: () => {
@@ -152,7 +150,7 @@ describe('lib/UseCaseExecutor', () => {
         heavyWebApi: ({ executor }) => {
           return new Promise(resolve => {
             setTimeout(() => {
-              executor.next('render');
+              executor.fork('render');
               resolve();
             }, 100)
           });
@@ -179,7 +177,7 @@ describe('lib/UseCaseExecutor', () => {
     it('should emit an another use-case execution after self execution', done => {
       const executor_ = new UseCaseExecutor({
         child: () => {},
-        parent: ({ executor }) => { executor.next('child'); }
+        parent: ({ executor }) => { executor.fork('child'); }
       }, {});
 
       _handleRejectedEventForDebugging(executor_);

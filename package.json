@@ -13,9 +13,9 @@
     "url": "git+https://github.com/kjirou/downspout.git"
   },
   "keywords": [
-    "spa",
     "framework",
-    "event"
+    "event",
+    "queuing"
   ],
   "author": "kjirou",
   "license": "MIT",
@@ -26,6 +26,7 @@
   "devDependencies": {
     "http-server": "0.9.0",
     "jsdoc": "3.4.3",
+    "keypress": "0.2.1",
     "mocha": "3.1.2",
     "sinon": "1.17.6"
   },
