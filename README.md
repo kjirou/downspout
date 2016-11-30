@@ -26,8 +26,8 @@ Please use [browserify](https://github.com/substack/node-browserify)
 
 
 ## Usage
-### Image
-(Later)
+### Overview
+![](/doc/overview.png)
 
 ### Basic usage by CLI counter samples
 - [The simplest example](/examples/counter-1.js)
