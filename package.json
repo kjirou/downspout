@@ -1,0 +1,40 @@
+{
+  "name": "downspout",
+  "version": "0.0.2",
+  "description": "Queue the emitting of disorderly events and write business logics routinely",
+  "main": "index.js",
+  "scripts": {
+    "test": "$(npm bin)/mocha",
+    "jsdoc:generate": "$(npm bin)/jsdoc -c ./jsdoc/conf.json -r -d ./jsdoc/out",
+    "jsdoc:serve": "$(npm bin)/http-server ./jsdoc/out"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kjirou/downspout.git"
+  },
+  "keywords": [
+    "framework",
+    "event",
+    "queuing"
+  ],
+  "author": "kjirou",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kjirou/downspout/issues"
+  },
+  "homepage": "https://github.com/kjirou/downspout#readme",
+  "devDependencies": {
+    "http-server": "0.9.0",
+    "jsdoc": "3.4.3",
+    "keypress": "0.2.1",
+    "mocha": "3.1.2",
+    "sinon": "1.17.6"
+  },
+  "engines": {
+    "node": ">=6.8",
+    "npm": ">=3.10"
+  },
+  "dependencies": {
+    "rxjs": "5.0.0-rc.3"
+  }
+}
