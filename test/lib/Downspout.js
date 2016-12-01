@@ -233,7 +233,7 @@ describe('lib/Downspout', () => {
   });
 
   describe('Using the `context` option', () => {
-    it('should share the passed object in use-cases', done => {
+    it('should share the passed object among all use-cases', done => {
       const dependedSingletonInstances = {
         fooModel: { value: 0 },
       };
