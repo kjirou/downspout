@@ -1,7 +1,7 @@
 {
   "name": "downspout",
   "version": "0.0.3",
-  "description": "Framework to serialize the execution of event handlers for disorderly event emitting",
+  "description": "A framework to serialize the execution of event handlers for disorderly event emitting",
   "main": "index.js",
   "scripts": {
     "test": "$(npm bin)/mocha",

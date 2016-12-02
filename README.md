@@ -5,7 +5,7 @@
 
 README: ( [English](/README.md) | [日本語](/README.ja.md) )
 
-Framework to serialize the execution of event handlers for disorderly event emitting
+A framework to serialize the execution of event handlers for disorderly event emitting
 
 
 ## Functions of this module
