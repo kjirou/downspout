@@ -109,7 +109,7 @@ downspout.execute('decrement');  // -> "1"
     - EVENT_NAMES.USE_CASE_EXECUTION_REJECTED
 - [別のユースケースを呼び出す](/examples/counter-9.js)
   - Keywords:
-    - executor.fork
+    - utils.fork
 - [ユースケースとUIイベントを別レイヤーにしたい](/examples/counter-10.js)
   - Keywords:
     - routes
