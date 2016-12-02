@@ -36,5 +36,16 @@
   },
   "dependencies": {
     "rxjs": "5.0.0-rc.3"
-  }
+  },
+  "files": [
+    "LICENSE",
+    "README.md",
+    "doc",
+    "examples",
+    "index.js",
+    "lib",
+    "jsdoc",
+    "test",
+    "package.json"
+  ]
 }
