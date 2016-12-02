@@ -3,7 +3,7 @@
 [![npm version](https://badge.fury.io/js/downspout.svg)](https://badge.fury.io/js/downspout)
 [![CircleCI](https://circleci.com/gh/kjirou/downspout.svg?style=svg)](https://circleci.com/gh/kjirou/downspout)
 
-README: ( [English](/README.md) | [日本語](/README.ja.md) )
+README: ( [English](/README.md) | [日本語](/README_.ja.md) )
 
 乱雑なイベントの発火に対し、イベントハンドラの実行を直列化するフレームワーク
 
