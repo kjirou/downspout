@@ -5,17 +5,13 @@
 
 README: ( [English](/README.md) | [日本語](/README.ja.md) )
 
-乱雑なイベントの発火をキューで管理し、ビジネスロジックを定型的に書くためのモジュール
+乱雑なイベントの発火に対し、イベントハンドラの実行を直列化するフレームワーク
 
 
-## このモジュールの目的
-- ビジネスロジック（例えば、Flux の ActionCreator のような）を定型的に書きたい
-  - これは、多くのウェブ・フレームワークのように、ビジネスロジックを記述するための一定の書式を設けることで解決する
-- そのために、複数のビジネスロジックが同時に実行されることを抑止するのも必要だと思った
-  - 同じ変数に対し複数の処理が同時に参照・更新を行う可能性がある場合、データの整合性を担保するのが非常に難しい。
-    この一点の担保でビジネスロジック部分を書く際の難易度が大きく下がる。
-  - これは、イベントをキュー管理することによって解決する
-- CUI/CLIアプリでも使えるようにする
+## このモジュールの機能
+- イベントハンドラを記述するための枠組みを提供する。
+- ひとつのイベントハンドラをトランザクション処理として実行できるようにする。
+- イベントハンドラの実行をキューイングする。
 
 
 ## インストール方法
@@ -30,6 +26,52 @@ npm install --save downspout
 ## 使い方
 ### 概要
 ![](/doc/overview.png)
+
+```js
+const Downspout = require('downspout');
+
+const state = {
+  counter: 0,
+};
+
+const useCases = {
+  increment: () => {
+    return Promise.resolve({
+      type: 'INCREMENT',
+    });
+  },
+  decrement: () => {
+    return new Promise(resolve => {
+      setTimeout(() => {
+        resolve({
+          type: 'DECREMENT',
+        });
+      }, 1000);
+    });
+  },
+};
+
+const downspout = new Downspout(useCases);
+
+downspout.on('execution:resolved', ({ result: action }) => {
+  switch (action.type) {
+    case 'INCREMENT':
+      state.counter += 1;
+      break;
+    case 'DECREMENT':
+      state.counter -= 1;
+      break;
+  }
+
+  process.stdout.write(`${ state.counter }\n`);
+});
+
+downspout.execute('increment');  // -> "1"
+downspout.execute('increment');  // -> "2"
+downspout.execute('decrement');  // -> "1"
+downspout.execute('increment');  // -> "2"
+downspout.execute('decrement');  // -> "1"
+```
 
 ### 基本的な使い方を、CLI用サンプルカウンターアプリで解説
 - [最もシンプルな例](/examples/counter-1.js)
@@ -63,7 +105,7 @@ npm install --save downspout
     - EVENT_NAMES.USE_CASE_EXECUTION_REJECTED
 - [別のユースケースを呼び出す](/examples/counter-9.js)
   - Keywords:
-    - executor.fork
+    - utils.fork
 - [ユースケースとUIイベントを別レイヤーにしたい](/examples/counter-10.js)
   - Keywords:
     - routes

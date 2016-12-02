@@ -1,7 +1,7 @@
 {
   "name": "downspout",
-  "version": "0.0.2",
-  "description": "Queue the emitting of disorderly events and write business logics routinely",
+  "version": "0.0.3",
+  "description": "Framework to serialize the execution of event handlers for disorderly event emitting",
   "main": "index.js",
   "scripts": {
     "test": "$(npm bin)/mocha",
@@ -36,5 +36,16 @@
   },
   "dependencies": {
     "rxjs": "5.0.0-rc.3"
-  }
+  },
+  "files": [
+    "LICENSE",
+    "README.md",
+    "doc",
+    "examples",
+    "index.js",
+    "lib",
+    "jsdoc",
+    "test",
+    "package.json"
+  ]
 }

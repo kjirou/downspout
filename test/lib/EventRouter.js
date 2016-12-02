@@ -12,7 +12,7 @@ describe('lib/EventRouter', () => {
       });
     });
 
-    it('can parse an array of only one element', () => {
+    it('can parse an array of just one element', () => {
       assert.deepStrictEqual(EventRouter._parseRouteData(['createFoo']), {
         useCaseName: 'createFoo',
         fixedUseCaseArgs: [],
