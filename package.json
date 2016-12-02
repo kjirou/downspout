@@ -1,6 +1,6 @@
 {
   "name": "downspout",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "A framework to serialize the execution of event handlers for disorderly event emitting",
   "main": "index.js",
   "scripts": {
@@ -40,6 +40,7 @@
   "files": [
     "LICENSE",
     "README.md",
+    "README_.ja.md",
     "doc",
     "examples",
     "index.js",
