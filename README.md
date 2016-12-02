@@ -5,16 +5,13 @@
 
 README: ( [English](/README.md) | [日本語](/README.ja.md) )
 
-Queue the emitting of disorderly events and write business logics routinely
+Framework to serialize the execution of event handlers for disorderly event emitting
 
 
-## Purpose of this module
-- Define business logic (such as ActionCreator) routinely.
-  - This is solved by providing a format to describe to business logic like most of web frameworks.
-- Therefore, it prevents simultaneous execution of multiple business logic.
-  - It is very difficult to maintain consistency of data when multiple processes reference / update the same variable.
-  - This is solved by queuing events.
-- Make it available for CUI / CLI applications.
+## Functions of this module
+- Provide a framework for describing event handlers.
+- Allow one event handler to execute as transaction processing.
+- Queue the execution of event handlers.
 
 
 ## Installation
