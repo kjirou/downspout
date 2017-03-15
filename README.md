@@ -121,6 +121,3 @@ downspout.execute('decrement');  // -> "1"
 
 ### with the React
 (Later)
-
-### with the Redux
-As far as using `bindActionCreators`, it was impossible.
